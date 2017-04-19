@@ -110,6 +110,7 @@ module.exports = function(robot) {
   robot.hear(/(.*)/i, function(result) {
 
     var cmds = result.match[0].split(" ");
+    console.log('Commands: ',cmds);
     var cmd = _.get(vocabulary, _.first(cmds), unknownCommand);
     var response = cmd( world.players.nic, world, _.tail(cmds));
 
