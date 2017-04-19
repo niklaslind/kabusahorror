@@ -9,6 +9,7 @@ module.exports = function(robot) {
   }
 
   var vocabulary = {
+
     look: function(player, world, params) {
       return player.currentLocation.description +
         '\nI can see '+_.map(player.currentLocation.items, 'name')  +
@@ -98,21 +99,27 @@ module.exports = function(robot) {
   var world =  {
     map: rooms,
     items: items,
-    players: {
-      nic: {
+    players: {}
+  }
+
+  function getPlayer(playerName, world) {
+    if(! _.has(world.players, playerName)) {
+      world.players[playerName] = {
         currentLocation: rooms.beach,
         inventory: []
       }
     }
+    return _.get(world.players, playerName);
   }
-
 
   robot.hear(/(.*)/i, function(result) {
 
-    var cmds = result.match[0].split(" ");
-    console.log('Commands: ',result);
-    var cmd = _.get(vocabulary, _.first(cmds), unknownCommand);
-    var response = cmd( world.players.nic, world, _.tail(cmds));
+    var input = result.match[0].split(" ");
+    var player = getPlayer(result.message.user.name, world);
+    var cmd = _.get(vocabulary, _.first(input), unknownCommand);
+    var params =  _.tail(input);
+    console.log(input, player)
+    var response = cmd( player, world, params);
 
     result.send( response );
 
