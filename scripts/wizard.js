@@ -89,7 +89,7 @@ module.exports = function(robot) {
   function mapRooms(rooms) {
     _.each(
       rooms,
-      (r) => { r.exits = mapExits(r.exits); }
+      function(r) { r.exits = mapExits(r.exits); }
   );
   }
 
@@ -107,7 +107,7 @@ module.exports = function(robot) {
   }
 
 
-  robot.hear(/(.*)/i, (result) => {
+  robot.hear(/(.*)/i, function(result) {
 
     var cmds = result.match[0].split(" ");
     var cmd = _.get(vocabulary, _.first(cmds), unknownCommand);
