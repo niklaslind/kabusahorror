@@ -2,6 +2,7 @@ module.exports = function(robot) {
 
 
   var _ = require('lodash');
+  var handlebars = require('handlebars');
 
 
   function unknownCommand() {
@@ -11,7 +12,8 @@ module.exports = function(robot) {
   var vocabulary = {
 
     look: function(player, world, params) {
-      return player.currentLocation.description +
+      var location = player.currentLocation;
+      return location.description(player) +
         '\nI can see '+_.map(player.currentLocation.items, 'name')  +
         '\nI can go ' + _.keys(player.currentLocation.exits);
     },
@@ -21,7 +23,7 @@ module.exports = function(robot) {
       var newLocation = _.get( player.currentLocation.exits, params[0]);
       if (!newLocation) return "I can't go "+params[0]
       player.currentLocation = newLocation;
-      return player.currentLocation.description;
+      return newLocation.description(player);
     },
 
     pick: function (player, world, params) {
@@ -43,7 +45,7 @@ module.exports = function(robot) {
     },
 
     inventory: function (player, world, params) {
-      return "I am carrying "+_.map(player.inventory, 'name');
+      return player.name+" is carrying "+_.map(player.inventory, 'name');
     },
 
     use: function (player, world, params) {
@@ -68,14 +70,14 @@ module.exports = function(robot) {
 
   var rooms = {
     beach: {
-      description: "I'm standing on a beautiful beach.",
+      description: "{{name}} is standing on a beautiful beach.",
       exits: {
         east: 'stream'
       },
       items: [items.mirror]
     },
     stream: {
-      description: "I'm by a small stream leading out into the ocean.",
+      description: "{{name}} is standing by a small stream leading out into the ocean.",
       exits: {
         west: 'beach'
       },
@@ -90,7 +92,10 @@ module.exports = function(robot) {
   function mapRooms(rooms) {
     _.each(
       rooms,
-      function(r) { r.exits = mapExits(r.exits); }
+      function(r) {
+        r.exits = mapExits(r.exits);
+        r.description = handlebars.compile(r.description);
+      }
   );
   }
 
@@ -105,6 +110,7 @@ module.exports = function(robot) {
   function getPlayer(playerName, world) {
     if(! _.has(world.players, playerName)) {
       world.players[playerName] = {
+        name: playerName,
         currentLocation: rooms.beach,
         inventory: []
       }
@@ -118,7 +124,6 @@ module.exports = function(robot) {
     var player = getPlayer(result.message.user.name, world);
     var cmd = _.get(vocabulary, _.first(input), unknownCommand);
     var params =  _.tail(input);
-    console.log(input, player)
     var response = cmd( player, world, params);
 
     result.send( response );
