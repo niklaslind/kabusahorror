@@ -4,7 +4,7 @@ module.exports = {
 
   help: function(player, world, params) {
     return 'Try some of these: '+
-      '\nlook \ngo <destination> \npick <item> \ndrop <item> \ninventory \nuse <item>';
+      '\nlook \ngo <destination> \npick <item> (example: pick a mirror) \ndrop <item> \ninventory \nuse <item>';
   },
   
   look: function(player, world, params) {
