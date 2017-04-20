@@ -17,10 +17,18 @@
     beach: {
       description: "{{name}} is standing on a beautiful beach.",
       exits: {
-        east: 'stream'
+        east: 'stream',
+        north: 'kabusahouse'
       },
       items: [items.mirror]
     },
+    kabusahouse: {
+      description: "{{name}} is standing outside Kabusagården.",
+      exits: {
+        south: 'beach'
+      },
+      items: [items.mirror]
+    },    
     stream: {
       description: "{{name}} is standing by a small stream leading out into the ocean.",
       exits: {
