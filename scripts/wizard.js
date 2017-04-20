@@ -8,7 +8,7 @@ module.exports = function(robot) {
 
   
   function unknownCommand() {
-    return "Sorry, I didn't understand that?";
+    return "Sorry, I didn't understand that? Type 'help' to get help.";
   }
 
   function getPlayer(playerName, world) {

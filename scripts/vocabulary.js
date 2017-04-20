@@ -1,18 +1,23 @@
 var _ = require('lodash');
 
 module.exports = {
+
+  help: function(player, world, params) {
+    return 'Try some of these: '+
+      '\nlook \ngo <destination> \npick <item> \ndrop <item> \ninventory \nuse <item>';
+  },
   
   look: function(player, world, params) {
     var location = player.currentLocation;
     return location.description(player) +
-      '\nI can see '+_.map(player.currentLocation.items, 'name')  +
-      '\nI can go ' + _.keys(player.currentLocation.exits);
+      '\n... can see '+_.map(player.currentLocation.items, 'name')  +
+      '\n... can go ' + _.keys(player.currentLocation.exits);
   },
 
   go: function(player, world, params) {
-    if (_.isEmpty(params)) return "Go where?"
+    if (_.isEmpty(params)) return "Go where?";
     var newLocation = _.get( player.currentLocation.exits, params[0]);
-    if (!newLocation) return "I can't go "+params[0]
+    if (!newLocation) return "I can't go "+params[0];
     player.currentLocation = newLocation;
     return newLocation.description(player);
   },
