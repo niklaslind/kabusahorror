@@ -4,7 +4,114 @@ module.exports = function(robot) {
   var handlebars = require('handlebars');
 
   var vocabulary = require('./vocabulary');
-  var world = require('./world').world;
+  //var world = require('./world').world;
+  var world = {};
+  
+  // *******************************************
+  //  World.js functions temporarily moved here
+  // *******************************************
+  
+  var _ = require('lodash');
+  var handlebars = require('handlebars');
+  var request = require('request');
+
+  var request = require('request');
+  
+    
+    var items = {
+    mirror: {
+      name: "a mirror",
+      use: function (player, world, params) {
+        return "I see a scary reflection of myself";
+      }
+    }
+  };
+  
+    // Backup world to be used if global world can t be loaded from url
+    var roomsBackup = {
+    beach: {
+      description: "{{name}} is standing on a beautiful beach.",
+      exits: {
+        east: 'stream',
+        north: 'kabusahouse'
+      },
+      items: [items.mirror]
+    },
+    kabusahouse: {
+      description: "{{name}} is standing outside Kabusagården.",
+      exits: {
+        south: 'beach',
+        west: 'Hildas'
+      },
+      items: [items.mirror]
+    },    
+    stream: {
+      description: "{{name}} is standing by a small stream leading out into the ocean.",
+      exits: {
+        west: 'beach'
+      },
+      items: []
+    },    
+    Hildas: {
+      description: "{{name}} is standing by an store, they are selling ice cream..",
+      exits: {
+        east: 'kabusahouse'
+      },
+      items: [items.icecream]
+    }
+  };
+  
+  function mapExit(exitName) { return _.get(rooms, exitName);}
+
+  function mapExits(exits) { return _.mapValues( exits, mapExit );}
+
+  function prepareRooms(rooms) {
+    _.each(
+      rooms,
+      function(r) {
+        r.exits = mapExits(r.exits);
+        r.description = handlebars.compile(r.description);
+      }
+    );
+    return rooms;
+  }
+  
+  
+  // Get global world from api, then create world object.
+  //var globalWorldUrl = 'http://localhost:8050/getDataAws';
+  var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
+  
+    
+  request(globalWorldUrl, function (error, response, body) {
+    if (error){
+      //console.log("Error getting world data, using backup world for now: ", error);
+      rooms = roomsBackup;
+    } else {
+      console.log("External update succeded, Using global world");
+      
+      rooms = JSON.parse(JSON.parse(response.body).data);
+            
+    }
+    
+        //console.log("=======\n rooms:", rooms, "=======\n ");
+        world =  {
+          map: prepareRooms(rooms),
+          items: items,
+          players: {}
+      };
+      
+      //console.log("Rooms loaded, world set up. world:", world);
+   
+  });
+  
+
+
+  // ***************************
+  //  End world.js funcitons
+  // ***************************
+  
+
+  //console.log("=======\n Modules loaded..", world, "=======\n ");
 
   
   function unknownCommand() {
@@ -15,7 +122,7 @@ module.exports = function(robot) {
     if(! _.has(world.players, playerName)) {
       world.players[playerName] = {
         name: playerName,
-        currentLocation: world.map.beach,
+        currentLocation: world.map.Hildas,
         inventory: []
       };
     }
