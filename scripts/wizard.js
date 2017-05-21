@@ -24,7 +24,19 @@ module.exports = function(robot) {
       use: function (player, world, params) {
         return "I see a scary reflection of myself";
       }
-    }    
+    },
+    icecream: {
+      name: "an icecream",
+      use: function (player, world, params) {
+        return "Mmm, that was yummy";
+      }
+    },
+    winebottle: {
+      name: "a wine bottle",
+      use: function (player, world, params) {
+        return "No, I should nt  drink this .. now";
+      }
+    }     
   };
   
     // Backup world to be used if global world can t be loaded from url
