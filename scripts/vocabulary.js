@@ -9,6 +9,7 @@ module.exports = {
   
   look: function(player, world, params) {
     var location = player.currentLocation;
+    console.log("Look items: ", player.currentLocation);
     return location.description(player) +
       '\n... can see '+_.map(player.currentLocation.items, 'name')  +
       '\n... can go ' + _.keys(player.currentLocation.exits);

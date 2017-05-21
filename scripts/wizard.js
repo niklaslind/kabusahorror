@@ -24,7 +24,7 @@ module.exports = function(robot) {
       use: function (player, world, params) {
         return "I see a scary reflection of myself";
       }
-    }
+    }    
   };
   
     // Backup world to be used if global world can t be loaded from url
@@ -80,8 +80,7 @@ module.exports = function(robot) {
   // Get global world from api, then create world object.
   //var globalWorldUrl = 'http://localhost:8050/getDataAws';
   var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
-  
-    
+      
   request(globalWorldUrl, function (error, response, body) {
     if (error){
       //console.log("Error getting world data, using backup world for now: ", error);
@@ -89,11 +88,20 @@ module.exports = function(robot) {
     } else {
       console.log("External update succeded, Using global world");
       
+      //rooms = JSON.parse(JSON.parse(response.body).data);
       rooms = JSON.parse(JSON.parse(response.body).data);
-            
+
+      // Items needs to be parsed separately, ToDo: Fix this.
+      for (key in rooms){                
+        if (rooms[key].items[0].length > 0) {
+          var curObj = rooms[key].items[0].split(".")[1];          
+          rooms[key].items = [items[curObj]];        
+        }
+
+      }
     }
     
-        //console.log("=======\n rooms:", rooms, "=======\n ");
+        console.log("=======\n rooms:", rooms, "=======\n ");
         world =  {
           map: prepareRooms(rooms),
           items: items,
