@@ -26,7 +26,10 @@ module.exports = {
   pick: function (player, world, params) {
     if (_.isEmpty(params)) return "Pick what?";
     var item = _.find(player.currentLocation.items, {name: params.join(' ')});
+    console.log("Item: ", item);
+
     if (!item) return "I can't pick "+params[0];
+    if (item.name == 'an icecream') return "Hilda won t give you an icecream for free, who do you think you are??";    
     player.inventory.push(item);
     _.pull(player.currentLocation.items, item);
     return "Ok!";
