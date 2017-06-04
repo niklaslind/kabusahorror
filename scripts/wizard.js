@@ -37,6 +37,12 @@ module.exports = function(robot) {
         return "Ghaa!";
       }
     },
+      oldhangglider: {
+      name: "an old hangglider",
+      use: function (player, world, params) {
+        return "Oh, wonder if we can fix it";
+      }
+    },
         spade: {
       name: "a spade",
       use: function (player, world, params) {
