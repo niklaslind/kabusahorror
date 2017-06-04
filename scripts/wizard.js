@@ -31,6 +31,12 @@ module.exports = function(robot) {
         return "Mmm, that was yummy";
       }
     },
+        spade: {
+      name: "a spade",
+      use: function (player, world, params) {
+        return "You found a skull!!!";
+      }
+    },
     winebottle: {
       name: "a wine bottle",
       use: function (player, world, params) {
