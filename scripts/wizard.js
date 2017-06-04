@@ -31,10 +31,17 @@ module.exports = function(robot) {
         return "Mmm, that was yummy";
       }
     },
+    skull: {
+      name: "a skull",
+      use: function (player, world, params) {
+        return "Ghaa!";
+      }
+    },
         spade: {
       name: "a spade",
       use: function (player, world, params) {
-        return "You found a skull!!!";
+        var items = world["Tingshögarna"]["items"];
+        return "items: "+items;
       }
     },
     winebottle: {
