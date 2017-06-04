@@ -40,8 +40,8 @@ module.exports = function(robot) {
         spade: {
       name: "a spade",
       use: function (player, world, params) {
-        var items = world["Tingshögarna"]["items"];
-        return "items: "+items;
+        console.log(world);
+        return "items: "+world.map.Tingshogarna;
       }
     },
     winebottle: {
