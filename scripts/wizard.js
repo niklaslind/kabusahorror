@@ -40,8 +40,9 @@ module.exports = function(robot) {
         spade: {
       name: "a spade",
       use: function (player, world, params) {
-        console.log(world);
-        return "items: "+world.map.Tingshogarna;
+        var tingshogItems = world.map.Tingshogarna.items;
+        tingshogItems.push(world.items.skull);
+        return "Wow! I found something!";
       }
     },
     winebottle: {
