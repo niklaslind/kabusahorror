@@ -20,9 +20,9 @@ module.exports = function(robot) {
     
     var items = {
     mirror: {
-      name: "a mirror",
+      name: "en spegel",
       use: function (player, world, params) {
-        return "I see a scary reflection of myself";
+        return "Jag ser en läskig spegelbild av mig själv!";
       }
     },
     glass: {
@@ -31,30 +31,30 @@ module.exports = function(robot) {
         return "Mmm, det var gott!";
       }
     },
-    skull: {
-      name: "a skull",
+    skalle: {
+      name: "en skalle",
       use: function (player, world, params) {
         return "Ghaa!";
       }
     },
-      oldhangglider: {
-      name: "an old hangglider",
+      hangglidare: {
+      name: "en gammal hängglidare",
       use: function (player, world, params) {
-        return "Oh, wonder if we can fix it";
+        return "Oh nej, jag kraschar... BOFF!!!";
       }
     },
         spade: {
-      name: "a spade",
+      name: "en spade",
       use: function (player, world, params) {
         var tingshogItems = world.map.Tingshogarna.items;
-        tingshogItems.push(world.items.skull);
-        return "Wow! I found something!";
+        tingshogItems.push(world.items.skalle);
+        return "Wow! Jag hittade någonting!";
       }
     },
-    winebottle: {
-      name: "a wine bottle",
+    vinflaska: {
+      name: "en vinflaska",
       use: function (player, world, params) {
-        return "No, I should nt  drink this .. now";
+        return "Nej, jag borde inte dricka den här, just nu..";
       }
     }     
   };
@@ -135,7 +135,7 @@ module.exports = function(robot) {
       }
     }
     
-        console.log("=======\n rooms:", rooms, "=======\n ");
+        //console.log("=======\n rooms:", rooms, "=======\n ");
         world =  {
           map: prepareRooms(rooms),
           items: items,
@@ -157,7 +157,7 @@ module.exports = function(robot) {
 
   
   function unknownCommand() {
-    return "Sorry, I didn't understand that? Type 'help' to get help.";
+    return "Ursäkta, jag förstod inte vad du sa? Skriv 'hjälp' för att få hjälp.";
   }
 
   function getPlayer(playerName, world) {

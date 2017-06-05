@@ -5,7 +5,7 @@ module.exports = {
 
   hjälp: function(player, world, params) {
     return 'Försök med någpt av detta: '+
-      '\nlook \ngo <destination> \npick <item> (example: pick a mirror) \ndrop <item> \ninventory \nuse <item>';
+      '\ntitta \ngo <destination> \nta <item> (exaempel: ta en glass) \nsläpp <item> \ninventory \nanvänd <item>';
   },
   
   titta: function(player, world, params) {
