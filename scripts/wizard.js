@@ -93,6 +93,8 @@ module.exports = function(robot) {
     }
   };
   
+//  function randomComment(commentArray) {return commentArray[Math.floor(Math.random() * commentArray.length)]}
+  
   function mapExit(exitName) { return _.get(rooms, exitName);}
 
   function mapExits(exits) { return _.mapValues( exits, mapExit );}

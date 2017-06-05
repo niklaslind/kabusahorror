@@ -1,57 +1,60 @@
 var _ = require('lodash');
 
 module.exports = {
+  
 
-  help: function(player, world, params) {
-    return 'Try some of these: '+
+  hjälp: function(player, world, params) {
+    return 'Försök med någpt av detta: '+
       '\nlook \ngo <destination> \npick <item> (example: pick a mirror) \ndrop <item> \ninventory \nuse <item>';
   },
   
-  look: function(player, world, params) {
+  titta: function(player, world, params) {
     var location = player.currentLocation;
-    console.log("Look items: ", player.currentLocation);
+    //console.log("Look items: ", player.currentLocation);
     return location.description(player) +
-      '\n... can see '+_.map(player.currentLocation.items, 'name')  +
-      '\n... can go ' + _.keys(player.currentLocation.exits);
+      '\n... kan se '+_.map(player.currentLocation.items, 'name')  +
+      '\n... kan gå ' + _.keys(player.currentLocation.exits);
   },
 
-  go: function(player, world, params) {
-    if (_.isEmpty(params)) return "Go where?";
+  gå: function(player, world, params) {
+    if (_.isEmpty(params)) return "Gå vart?";
     var newLocation = _.get( player.currentLocation.exits, params[0]);
-    if (!newLocation) return "I can't go "+params[0];
+    if (!newLocation) return "Jag kan inte gå "+params[0];
     player.currentLocation = newLocation;
     return newLocation.description(player);
   },
 
-  pick: function (player, world, params) {
-    if (_.isEmpty(params)) return "Pick what?";
+  ta: function (player, world, params) {
+    if (_.isEmpty(params)) return "Ta upp vaddå?";
     var item = _.find(player.currentLocation.items, {name: params.join(' ')});
     console.log("Item: ", item);
 
-    if (!item) return "I can't pick "+params[0];
-    if (item.name == 'an icecream') return "Hilda ger dig ju ingen glass gratis, vem tror du att du är??";    
+    if (!item) return "Jag kan inte ta upp "+params[0];
+    var commentArray = ["Hilda ger dig ju ingen glass gratis, vem tror du att du är??", "Den här glassen kostar pengar", "Har du en döskalle att byta med?"];
+    if (item.name == 'en glass' && Math.random() > 0.4) return commentArray[Math.floor(Math.random() * commentArray.length)];    
+    //if (item.name == 'en glass' && decider > 0) return player.randomComment(["Hilda ger dig ju ingen glass gratis, vem tror du att du är??", "Den här glassen kostar pengar", "Har du en döskalle att byta med?"]);    
     player.inventory.push(item);
     _.pull(player.currentLocation.items, item);
     return "Ok!";
   },
 
-  drop: function (player, world, params) {
-    if (_.isEmpty(params)) return "Drop what?";
+  släpp: function (player, world, params) {
+    if (_.isEmpty(params)) return "Släpp vaddå?";
     var item = _.find(player.inventory, {name: params.join(' ')});
-    if (!item) return "I'm not holding "+params.join(' ');
+    if (!item) return "Jag har ingen "+params.join(' ');
     player.currentLocation.items.push(item);
     _.pull(player.inventory, item);
     return "Ok!";
   },
 
   inventory: function (player, world, params) {
-    return player.name+" is carrying "+_.map(player.inventory, 'name');
+    return player.name+" bär på "+_.map(player.inventory, 'name');
   },
 
-  use: function (player, world, params) {
-    if (_.isEmpty(params)) return "Use what?";
+  använd: function (player, world, params) {
+    if (_.isEmpty(params)) return "Använd vaddå?";
     var item = _.find(player.inventory, {name: params.join(' ')});
-    if (!item) return "I'm not holding "+params.join(' ');
+    if (!item) return "Jag har ingen "+params.join(' ');
     return item.use(player, world, params);
   }
 
