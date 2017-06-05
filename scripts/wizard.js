@@ -32,7 +32,7 @@ module.exports = function(robot) {
       }
     },
     skalle: {
-      name: "en skalle",
+      name: "en döskalle",
       use: function (player, world, params) {
         return "Ghaa!";
       }

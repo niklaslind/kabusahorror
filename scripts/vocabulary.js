@@ -5,7 +5,7 @@ module.exports = {
 
   hjälp: function(player, world, params) {
     return 'Försök med någpt av detta: '+
-      '\ntitta \ngo <destination> \nta <item> (exaempel: ta en glass) \nsläpp <item> \ninventory \nanvänd <item>';
+      '\ntitta \ngå <destination> \nta <item> (exaempel: ta en glass) \nsläpp <item> \ninventory \nanvänd <item>';
   },
   
   titta: function(player, world, params) {
@@ -30,9 +30,16 @@ module.exports = {
     console.log("Item: ", item);
 
     if (!item) return "Jag kan inte ta upp "+params[0];
-    var commentArray = ["Hilda ger dig ju ingen glass gratis, vem tror du att du är??", "Den här glassen kostar pengar", "Har du en döskalle att byta med?"];
-    if (item.name == 'en glass' && Math.random() > 0.4) return commentArray[Math.floor(Math.random() * commentArray.length)];    
-    //if (item.name == 'en glass' && decider > 0) return player.randomComment(["Hilda ger dig ju ingen glass gratis, vem tror du att du är??", "Den här glassen kostar pengar", "Har du en döskalle att byta med?"]);    
+    
+
+    // Special rule for Hildas ice cream, ToDo: add this to ice cream item    
+    if (item.name == 'en glass'){
+      var commentArray = ["Hilda ger dig ju ingen glass gratis, vem tror du att du är??", "Den här glassen kostar pengar", "Har du en döskalle att byta med?"];      
+      var objExists = player.currentLocation.items.filter(function ( objExists ) {return objExists.name === 'en döskalle';});        
+      if (objExists.length < 1) {return commentArray[Math.floor(Math.random() * commentArray.length)]}
+    }
+
+    
     player.inventory.push(item);
     _.pull(player.currentLocation.items, item);
     return "Ok!";
