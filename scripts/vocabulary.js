@@ -29,7 +29,7 @@ module.exports = {
     console.log("Item: ", item);
 
     if (!item) return "I can't pick "+params[0];
-    if (item.name == 'an icecream') return "Hilda won t give you an icecream for free, who do you think you are??";    
+    if (item.name == 'an icecream') return "Hilda ger dig ju ingen glass gratis, vem tror du att du är??";    
     player.inventory.push(item);
     _.pull(player.currentLocation.items, item);
     return "Ok!";

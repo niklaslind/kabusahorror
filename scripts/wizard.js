@@ -25,10 +25,10 @@ module.exports = function(robot) {
         return "I see a scary reflection of myself";
       }
     },
-    icecream: {
-      name: "an icecream",
+    glass: {
+      name: "en glass",
       use: function (player, world, params) {
-        return "Mmm, that was yummy";
+        return "Mmm, det var gott!";
       }
     },
     skull: {
