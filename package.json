@@ -4,7 +4,11 @@
   "private": true,
   "author": "Niklas Lind <niklas.johan.lind@gmail.com>",
   "description": "The Sand forest wizard",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
   "dependencies": {
+    "chai": "4.0.2",
     "handlebars": "4.0.6",
     "hubot": "2.19.0",
     "hubot-diagnostics": "0.0.1",
@@ -20,6 +24,7 @@
     "hubot-shipit": "0.2.0",
     "hubot-slack": "4.3.4",
     "lodash": "4.17.4",
+    "mocha": "3.4.2",
     "request": "^2.81.0"
   },
   "engines": {
