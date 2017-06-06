@@ -30,7 +30,6 @@ module.exports = {
     console.log("Item: ", item);
 
     if (!item) return "Jag kan inte ta upp "+params[0];
-    
 
     // Special rule for Hildas ice cream, ToDo: add this to ice cream item    
     if (item.name == 'en glass'){

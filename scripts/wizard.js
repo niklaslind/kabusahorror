@@ -61,36 +61,127 @@ module.exports = function(robot) {
   
     // Backup world to be used if global world can t be loaded from url
     var roomsBackup = {
-    beach: {
-      description: "{{name}} is standing on a beautiful beach.",
-      exits: {
-        east: 'stream',
-        north: 'kabusahouse'
-      },
-      items: [items.mirror]
-    },
-    kabusahouse: {
-      description: "{{name}} is standing outside Kabusagården.",
-      exits: {
-        south: 'beach',
-        west: 'Hildas'
-      },
-      items: [items.mirror]
-    },    
-    stream: {
-      description: "{{name}} is standing by a small stream leading out into the ocean.",
-      exits: {
-        west: 'beach'
-      },
-      items: []
-    },    
-    Hildas: {
-      description: "{{name}} is standing by an store, they are selling ice cream..",
-      exits: {
-        east: 'kabusahouse'
-      },
-      items: [items.icecream]
-    }
+   "KabusaHuset":{  
+      "description":"{{name}} står i ett stort hus. En hund stirrar på dig..",
+      "items":[  
+         ""
+      ],
+      "exits":{  
+         "north":"Kabusapromenaden",
+         "west":"Tingshogarna"
+      }
+   },
+   "Hildas":{  
+      "description":"{{name}} står framför en affär, dom säljer glass här..",
+      "items":[  
+         "items.glass"
+      ],
+      "exits":{  
+         "east":"Kabusagården",
+         "north":"Tingshogarna",
+         "south":"Stranden"
+      }
+   },
+   "Stranden":{  
+      "description":"{{name}} is standing on a beautiful beach",
+      "items":[  
+         "items.spegel"
+      ],
+      "exits":{  
+         "north":"Hildas",
+         "east":"Vakttornet",
+         "west":"Nybroån"
+      }
+   },
+   "Kabusagården":{  
+      "description":"{{name}} står utanför Kabusagården",
+      "items":[  
+         ""
+      ],
+      "exits":{  
+         "west":"Hildas",
+         "south":"Vakttornet",
+         "east":"Hammarsbackar"
+      }
+   },
+   "Nybroån":{  
+      "description":"{{name}} is standing by a small stream leading out into the ocean",
+      "items":[  
+         ""
+      ],
+      "exits":{  
+         "west":"Fritidsbaren",
+         "east":"Stranden"
+      }
+   },
+   "Kabusapromenaden":{  
+      "description":"{{name}} is standing on a large field",
+      "items":[  
+         ""
+      ],
+      "exits":{  
+         "south":"KabusaHuset",
+         "north":"Vingården"
+      }
+   },
+   "Vingården":{  
+      "description":"{{name}} står mellan ett par vinrankor",
+      "items":[  
+         "items.vinflaska"
+      ],
+      "exits":{  
+         "south":"Kabusapromenaden"
+      }
+   },
+   "Vakttornet":{  
+      "description":"{{name}} står bredvid ett högt vakttorn",
+      "items":[  
+         ""
+      ],
+      "exits":{  
+         "north":"Kabusagården",
+         "west":"Stranden"
+      }
+   },
+   "Fritidsbaren":{  
+      "description":"{{name}} is standing by a bar",
+      "items":[  
+         "items.meatballs"
+      ],
+      "exits":{  
+         "east":"Nybroån"
+      }
+   },
+   "Tingshogarna":{  
+      "description":"{{name}} står vid tre stora jordhögar. Något kanske är gömt här??",
+      "items":[  
+         "items.spade"
+      ],
+      "exits":{  
+         "south":"Hildas",
+         "east":"KabusaHuset"
+      }
+   },
+   "Hammarsbackar":{  
+      "description":"{{name}} står på en hög och blåsig kulle med en fantastisk utsikt över havet",
+      "items":[  
+         "Items.hangglidare"
+      ],
+      "exits":{  
+         "east":"Alesstenar",
+         "west":"Kabusagården"
+      }
+   },
+   "Alesstenar":{  
+      "description":"{{name}} står mitt bland några gamla och väldigt stora stenar. Ett får stirrar på dig..",
+      "items":[  
+         ""
+      ],
+      "exits":{  
+         "west":"Hammarsbackar"
+      }
+   }
+    
   };
   
 //  function randomComment(commentArray) {return commentArray[Math.floor(Math.random() * commentArray.length)]}
@@ -113,7 +204,7 @@ module.exports = function(robot) {
   
   // Get global world from api, then create world object.
   //var globalWorldUrl = 'http://localhost:8050/getDataAws';
-  var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
+  var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws2';
       
   request(globalWorldUrl, function (error, response, body) {
     if (error){
