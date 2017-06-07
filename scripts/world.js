@@ -1,11 +1,6 @@
 (function() {
   
-  var _ = require('lodash');
-  var handlebars = require('handlebars');
-  var request = require('request');
-  
-  
-    var items = {
+  var items = {
     mirror: {
       name: "en spegel",
       use: function (player, world, params) {
@@ -24,13 +19,13 @@
         return "Ghaa!";
       }
     },
-      hangglidare: {
+    hangglidare: {
       name: "en gammal hängglidare",
       use: function (player, world, params) {
         return "Oh nej, jag kraschar... BOFF!!!";
       }
     },
-        spade: {
+    spade: {
       name: "en spade",
       use: function (player, world, params) {
         var tingshogItems = world.map.Tingshogarna.items;
@@ -47,157 +42,163 @@
   };
   
   
-    var rooms = {
-   "KabusaHuset":{  
+  var rooms = {
+    "KabusaHuset":{  
       "description":"{{name}} står i ett stort hus. En hund stirrar på dig..",
       "items":[  
-         ""
+        ""
       ],
       "exits":{  
-         "north":"Kabusapromenaden",
-         "west":"Tingshogarna"
+        "north":"Kabusapromenaden",
+        "west":"Tingshogarna"
       }
-   },
-   "Hildas":{  
+    },
+    "Hildas":{  
       "description":"{{name}} står framför en affär, dom säljer glass här..",
       "items":[  
-         "items.glass"
+        items.glass
       ],
       "exits":{  
-         "east":"Kabusagården",
-         "north":"Tingshogarna",
-         "south":"Stranden"
+        "east":"Kabusagården",
+        "north":"Tingshogarna",
+        "south":"Stranden"
       }
-   },
-   "Stranden":{  
+    },
+    "Stranden":{  
       "description":"{{name}} is standing on a beautiful beach",
       "items":[  
-         "items.spegel"
+        "items.spegel"
       ],
       "exits":{  
-         "north":"Hildas",
-         "east":"Vakttornet",
-         "west":"Nybroån"
+        "north":"Hildas",
+        "east":"Vakttornet",
+        "west":"Nybroån"
       }
-   },
-   "Kabusagården":{  
+    },
+    "Kabusagården":{  
       "description":"{{name}} står utanför Kabusagården",
       "items":[  
-         ""
+        ""
       ],
       "exits":{  
-         "west":"Hildas",
-         "south":"Vakttornet",
-         "east":"Hammarsbackar"
+        "west":"Hildas",
+        "south":"Vakttornet",
+        "east":"Hammarsbackar"
       }
-   },
-   "Nybroån":{  
+    },
+    "Nybroån":{  
       "description":"{{name}} is standing by a small stream leading out into the ocean",
       "items":[  
-         ""
+        ""
       ],
       "exits":{  
-         "west":"Fritidsbaren",
-         "east":"Stranden"
+        "west":"Fritidsbaren",
+        "east":"Stranden"
       }
-   },
-   "Kabusapromenaden":{  
+    },
+    "Kabusapromenaden":{  
       "description":"{{name}} is standing on a large field",
       "items":[  
-         ""
+        ""
       ],
       "exits":{  
-         "south":"KabusaHuset",
-         "north":"Vingården"
+        "south":"KabusaHuset",
+        "north":"Vingården"
       }
-   },
-   "Vingården":{  
+    },
+    "Vingården":{  
       "description":"{{name}} står mellan ett par vinrankor",
       "items":[  
-         "items.vinflaska"
+        "items.vinflaska"
       ],
       "exits":{  
-         "south":"Kabusapromenaden"
+        "south":"Kabusapromenaden"
       }
-   },
-   "Vakttornet":{  
+    },
+    "Vakttornet":{  
       "description":"{{name}} står bredvid ett högt vakttorn",
       "items":[  
-         ""
+        ""
       ],
       "exits":{  
-         "north":"Kabusagården",
-         "west":"Stranden"
+        "north":"Kabusagården",
+        "west":"Stranden"
       }
-   },
-   "Fritidsbaren":{  
+    },
+    "Fritidsbaren":{  
       "description":"{{name}} is standing by a bar",
       "items":[  
-         "items.meatballs"
+        "items.meatballs"
       ],
       "exits":{  
-         "east":"Nybroån"
+        "east":"Nybroån"
       }
-   },
-   "Tingshogarna":{  
+    },
+    "Tingshogarna":{  
       "description":"{{name}} står vid tre stora jordhögar. Något kanske är gömt här??",
       "items":[  
-         "items.spade"
+        "items.spade"
       ],
       "exits":{  
-         "south":"Hildas",
-         "east":"KabusaHuset"
+        "south":"Hildas",
+        "east":"KabusaHuset"
       }
-   },
-   "Hammarsbackar":{  
+    },
+    "Hammarsbackar":{  
       "description":"{{name}} står på en hög och blåsig kulle med en fantastisk utsikt över havet",
       "items":[  
-         "Items.hangglidare"
+        "Items.hangglidare"
       ],
       "exits":{  
-         "east":"Alesstenar",
-         "west":"Kabusagården"
+        "east":"Alesstenar",
+        "west":"Kabusagården"
       }
-   },
-   "Alesstenar":{  
+    },
+    "Alesstenar":{  
       "description":"{{name}} står mitt bland några gamla och väldigt stora stenar. Ett får stirrar på dig..",
       "items":[  
-         ""
+        ""
       ],
       "exits":{  
-         "west":"Hammarsbackar"
+        "west":"Hammarsbackar"
       }
-   }
+    }
     
   };
     
-  
-   
-  
-  function mapExit(exitName) { return _.get(rooms, exitName);}
-  
-  function mapExits(exits) { return _.mapValues( exits, mapExit );}
-  
-  function prepareRooms(rooms) {
-   _.each(
-     rooms,
-     function(r) {
-       //console.log("======\n rooms:", r);
-       r.exits = mapExits(r.exits);
-       r.description = handlebars.compile(r.description);
-     }
-   );
-   return rooms;
-  }
-  
+  var gameLogic = {
+    
+    "map.Hildas" : {
+      ta: function (player, world, params, item) {
+        if (item != world.items.glass)
+          return {
+            success: true
+          };
+
+        var hildasItems = world.map.Hildas.items;
+        var skull = world.items.skalle;
+        if ( hildasItems.includes(skull) ) {
+          return {
+            success: true,
+            msg: "Ok, jag behöver döskallar för att göra mer glass."
+          };
+        } else {
+          return {
+            success: false,
+            msg: "Har du en döskalle att byta med?"
+          };
+        }
+      }
+    }
+  };     
   
   module.exports.world =  {
-   map: prepareRooms(rooms),
-   items: items,
-   players: {}
+    map: rooms,
+    items: items,
+    gameLogic: gameLogic
   };  
   
-
-    
+  
+  
 })();
 
