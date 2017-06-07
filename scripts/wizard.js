@@ -60,6 +60,32 @@ module.exports = function(robot) {
   };
   
     // Backup world to be used if global world can t be loaded from url
+  //var roomsBackup = {
+  //  beach: {
+  //    description: "{{name}} is standing on a beautiful beach.",
+  //    exits: {
+  //      east: 'stream',
+  //      north: 'kabusahouse'
+  //    },
+  //    items: [items.mirror]
+  //  },
+  //  kabusahouse: {
+  //    description: "{{name}} is standing outside Kabusagården.",
+  //    exits: {
+  //      south: 'beach'
+  //    },
+  //    items: [items.mirror]
+  //  },    
+  //  stream: {
+  //    description: "{{name}} is standing by a small stream leading out into the ocean.",
+  //    exits: {
+  //      west: 'beach'
+  //    },
+  //    items: []
+  //  }
+  //};    
+  //  
+    
     var roomsBackup = {
    "KabusaHuset":{  
       "description":"{{name}} står i ett stort hus. En hund stirrar på dig..",
@@ -184,6 +210,7 @@ module.exports = function(robot) {
     
   };
   
+  //
 //  function randomComment(commentArray) {return commentArray[Math.floor(Math.random() * commentArray.length)]}
   
   function mapExit(exitName) { return _.get(rooms, exitName);}
@@ -204,7 +231,7 @@ module.exports = function(robot) {
   
   // Get global world from api, then create world object.
   //var globalWorldUrl = 'http://localhost:8050/getDataAws';
-  var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws2';
+  var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
       
   request(globalWorldUrl, function (error, response, body) {
     if (error){
