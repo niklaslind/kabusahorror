@@ -2,7 +2,7 @@ module.exports = function(robot) {
   
   var _ = require('lodash');
   var inputParser = require('./inputParser');
-  var world = require('worldLoader').setupWorld();  
+  var world = require('./worldLoader').setupWorld();  
 
   function getPlayer(playerName, world) {
     if(! _.has(world.players, playerName)) {

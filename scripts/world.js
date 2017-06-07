@@ -137,7 +137,7 @@
     "Tingshogarna":{  
       "description":"{{name}} står vid tre stora jordhögar. Något kanske är gömt här??",
       "items":[  
-        "items.spade"
+        items.spade
       ],
       "exits":{  
         "south":"Hildas",
