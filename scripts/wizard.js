@@ -17,10 +17,12 @@ module.exports = function(robot) {
 
   
   robot.hear(/(.*)/i, function(result) {
-
+  
+  
     var inputArray = result.match[0].split(" ");
     var player = getPlayer(result.message.user.name, world);
-    var response = inputParser.process(inputArray, player, world);
+    var response = inputParser.process(inputArray, player, world);        
+
     result.send( response );
 
   });

@@ -56,7 +56,7 @@
   function getRemoteWorld() {
     // Get global world from api, then create world object.
     //var globalWorldUrl = 'http://localhost:8050/getDataAws';
-    var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws2';
+    var globalWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
     
     request(globalWorldUrl, function (error, response, body) {
       if (error){
