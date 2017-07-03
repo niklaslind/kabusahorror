@@ -57,12 +57,27 @@
       } else {
         console.log('Processing remote world');
         var rooms = JSON.parse(JSON.parse(response.body).data);
+        rooms = parseRoomItems(rooms, inputWorld.items);
         var world = processWorld(inputWorld, rooms);
         callback(world);        
       }
     });
   }
 
+
+  function mapItems(itemStringList, items) {
+    return _.map(itemStringList, (s) => {return items[ s.split(".")[1]];});
+  }    
+  
+  function parseRoomItems(rooms, items) {    
+    return _.mapValues(rooms, (o) => {
+      o.items = mapItems(o.items, items);
+      return o;
+    } );        
+  }
+  
+  
+    
   function processWorld( defaultWorld, rooms ) {
     var world = {
       map: prepareRooms(rooms),
@@ -87,10 +102,10 @@
         console.log("External update succeded, Using global world");
         
         //rooms = JSON.parse(JSON.parse(response.body).data);
-        rooms = JSON.parse(JSON.parse(response.body).data);
+        var rooms = JSON.parse(JSON.parse(response.body).data);
 
         // Items needs to be parsed separately, ToDo: Fix this.
-        for (key in rooms){                
+        for (var key in rooms){                
           if (rooms[key].items[0].length > 0) {
             var curObj = rooms[key].items[0].split(".")[1];          
             rooms[key].items = [items[curObj]];        
@@ -111,7 +126,11 @@
 
   module.exports = {
     initLocalWorld: initLocalWorld,
-    initRemoteWorld: initRemoteWorld
+    initRemoteWorld: initRemoteWorld,
+    internalTestable: {
+      mapItems: mapItems,
+      parseRoomItems: parseRoomItems
+    }
   };
   
 })();

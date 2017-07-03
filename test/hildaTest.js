@@ -17,13 +17,13 @@ function getPlayer(playerName, world) {
 
 
 
-var world= require('../scripts/worldLoader').initLocalWorld();  
+var worldLoader = require('../scripts/worldLoader');
+var world = worldLoader.initLocalWorld();  
 var player = getPlayer('Tester', world);
 var icecream = world.items.glass;  
 var skull = world.items.skalle;  
 var hildasItems = world.map.Hildas.items;
 var playerItems = player.inventory;
-
 
 
 describe('Hildas place', function () {
@@ -85,6 +85,39 @@ describe('Upper and lower cases', function () {
   
 });
 
+
+describe('worldLoader', function() {
+
+  it('Should map a list of string items to a list of items', function() {
+    var items = world.items;
+    var testItems = ["items.skalle", "items.spade"];
+
+    var testResult = worldLoader.internalTestable.mapItems(testItems, items);
+
+    chai.expect(testResult[0]).equal(items.skalle);
+    chai.expect(testResult[1]).equal(items.spade);    
+
+  });
+
+  it('Should parse items as strings and update rooms with references to items', function() {
+
+    var items = world.items;
+    var testRooms = {
+      'testRoom1': {
+        "items": ["items.skalle", "items.spade"]
+      },
+      'testRoom2': {
+        "items": ["items.glass"]
+      }      
+    };
+
+    var testResult = worldLoader.internalTestable.parseRoomItems(testRooms, items);
+
+    chai.expect(testResult.testRoom1.items[0]).equal(items.skalle);    
+    
+  });
+
+});
 
 
 
