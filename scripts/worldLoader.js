@@ -39,19 +39,40 @@
     return require('./world').world;
   }
 
-  function setupWorld() {
-    var inputWorld = getLocalWorld();
-    var world = {
-      map: prepareRooms(inputWorld.map),
-      items: inputWorld.items,
-      players: {}
-    };
-
-    addGameLogic(world, inputWorld.gameLogic);
-
-    return world;
+  function initLocalWorld() {
+    var inputWorld = getLocalWorld();    
+    return processWorld( inputWorld, inputWorld.map);
   };
 
+
+  function initRemoteWorld( callback  ) {    
+    var inputWorld = getLocalWorld();    
+    // Get global world from api, then create world object.
+    //var globalWorldUrl = 'http://localhost:8050/getDataAws';
+    var remoteWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
+    
+    request(remoteWorldUrl, function (error, response, body) {
+      if (error) {
+        console.log('Could not load remote world');
+      } else {
+        console.log('Processing remote world');
+        var rooms = JSON.parse(JSON.parse(response.body).data);
+        var world = processWorld(inputWorld, rooms);
+        callback(world);        
+      }
+    });
+  }
+
+  function processWorld( defaultWorld, rooms ) {
+    var world = {
+      map: prepareRooms(rooms),
+      items: defaultWorld.items,
+      players: {}
+    };
+    addGameLogic(world, defaultWorld.gameLogic);
+    return world;
+  }
+            
   
   function getRemoteWorld() {
     // Get global world from api, then create world object.
@@ -89,7 +110,8 @@
 
 
   module.exports = {
-    setupWorld: setupWorld
+    initLocalWorld: initLocalWorld,
+    initRemoteWorld: initRemoteWorld
   };
   
 })();

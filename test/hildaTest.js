@@ -17,7 +17,7 @@ function getPlayer(playerName, world) {
 
 
 
-var world= require('../scripts/worldLoader').setupWorld();  
+var world= require('../scripts/worldLoader').initLocalWorld();  
 var player = getPlayer('Tester', world);
 var icecream = world.items.glass;  
 var skull = world.items.skalle;  
