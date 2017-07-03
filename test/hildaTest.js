@@ -88,7 +88,7 @@ describe('Upper and lower cases', function () {
 
 describe('worldLoader', function() {
 
-  it('Should map a list of string items to a list of items', function() {
+  it('Should map a list of item-strings to a list of items', function() {
     var items = world.items;
     var testItems = ["items.skalle", "items.spade"];
 
@@ -99,7 +99,7 @@ describe('worldLoader', function() {
 
   });
 
-  it('Should parse items as strings and update rooms with references to items', function() {
+  it('Should parse rooms and map list of item-strings to list of items', function() {
 
     var items = world.items;
     var testRooms = {
