@@ -2,7 +2,7 @@
 
   //  var kabesTomb = require('./kabesTomb');
   const _ = require('lodash');
-
+  var handlebars = require('handlebars');
   
   var items = {
     mirror: {
@@ -54,7 +54,7 @@
       ],
       "exits":{  
         "north":"Kabusapromenaden",
-        "west":"Tingshogarna"
+        "west":"Tingshögarna"
       }
     },
     "Hildas":{  
@@ -64,7 +64,7 @@
       ],
       "exits":{  
         "east":"Kabusagården",
-        "north":"Tingshogarna",
+        "north":"Tingshögarna",
         "south":"Stranden"
       }
     },
@@ -138,7 +138,7 @@
         "east":"Nybroån"
       }
     },
-    "Tingshogarna":{  
+    "Tingshögarna":{  
       "description":"{{name}} står vid tre stora jordhögar. Något kanske är gömt här??",
       "items":[  
         items.spade
@@ -166,19 +166,38 @@
       "exits":{  
         "west":"Hammarsbackar"
       }
-    }
+    },
+    "Underjorden":{  
+      "description":"Det är helt kolsvart och luktar förfärligt här nere.",
+      "items":[  
+        ""
+      ],
+      "exits":{  
+        "up":"Tingshögarna"
+      }
+    }    
     
+  };
+
+  var tingshogarnaUpdate = {
+    newDescription: handlebars.compile("En av de tre jordhögarna har öppnat sig. En underlig lukt kommer upp ur hålet."),
+    newExits :{  
+      "down": "Underjorden"
+    }    
   };
   
   var gameLogic = {
-
-
+        
     "map.Tingshögarna" : {
       dansa: function (player, world, params) {
-        if (_.size(world.dancers) < 3) 
+        if (_.size(world.dancers) < 1) 
           return "Wow, det ser bra ut! Men vi borde vara fler som dansar!";
-        else
-          return "Wow, nu skakar jorden!";
+        else {
+          const tings = world.map['Tingshögarna'];
+          tings.description = tingshogarnaUpdate.newDescription;
+          tings.exits["down"] = world.map[tingshogarnaUpdate.newExits["down"]];
+          return "Wow, ni dansar så jorden skakar!\nSeriöst, jorden skakar faktiskt...vad är det som händer? Bäst att titta efter.";
+        }
       }
     },
     

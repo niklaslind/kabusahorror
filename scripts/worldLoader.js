@@ -54,6 +54,8 @@
     request(remoteWorldUrl, function (error, response, body) {
       if (error) {
         console.log('Could not load remote world');
+        var world = processWorld(inputWorld, inputWorld.map);
+        callback(world);                
       } else {
         console.log('Processing remote world');
         var rooms = JSON.parse(JSON.parse(response.body).data);
