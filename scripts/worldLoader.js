@@ -57,6 +57,7 @@
       } else {
         console.log('Processing remote world');
         var rooms = JSON.parse(JSON.parse(response.body).data);
+        console.log( JSON.stringify(rooms, null, 2));
         rooms = parseRoomItems(rooms, inputWorld.items);
         var world = processWorld(inputWorld, rooms);
         callback(world);        
