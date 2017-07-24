@@ -8,7 +8,10 @@
     runsten: {
       name: "en runsten",
       use: function (player, world, params) {
-        return "Verkar inte kunna använda den till något. Men om jag läser på den så står det: \nNär en anka och en gris dansar på mina gravkullar skall jag avslöja min hemlighet.";
+        return "Verkar inte kunna använda den till något vettigt.";
+      },
+      examine: function (player, world, params) {
+        return "Ristningen är fornskånsk runskrift. Det är inte många i världen som kan läsa den men som tur är så är jag en av dem. Inskriptionen lyder:\n Kabe ristade denna sten. När grisen och ankan dansar på mina gravhögar skall jag avslöja min hemlighet.";
       }      
     },
     mirror: {

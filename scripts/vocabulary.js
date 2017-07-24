@@ -7,6 +7,19 @@ module.exports = {
     return 'Försök med någpt av detta: '+
       '\ntitta \ngå <destination> \nta <item> (exaempel: ta en glass) \nsläpp <item> \ninventory \nanvänd <item>\ndansa som en <någonting>\nsluta dansa';
   },
+
+  undersök: function(player, world, params) {
+    if (_.isEmpty(params)) return "Undersök vaddå?";
+    var itemName = params.join(' ');
+    var targetItem = {name: itemName};
+    var item = _.find(player.inventory , targetItem);
+    if (!item) item = _.find(player.currentLocation.items, targetItem);    
+    if (!item) return "Jag hittar ingen "+itemName;
+    if (item.examine)
+      return item.examine(player, world, params);
+    else
+      return "Det verkar vara "+itemName;
+  },
   
   titta: function(player, world, params) {
     var location = player.currentLocation;
