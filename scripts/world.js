@@ -1,4 +1,6 @@
 (function() {
+
+//  var kabesTomb = require('./kabesTomb');
   
   var items = {
     mirror: {
@@ -167,8 +169,10 @@
   };
     
   var gameLogic = {
+
     
     "map.Hildas" : {
+      
       ta: function (player, world, params, item) {
         if (item != world.items.glass)
           return {

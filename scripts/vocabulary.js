@@ -65,6 +65,24 @@ module.exports = {
     var item = _.find(player.inventory, {name: params.join(' ')});
     if (!item) return "Jag har ingen "+params.join(' ');
     return item.use(player, world, params);
+  },
+
+  dansa: function (player, world, params) {
+    if (!world.dancers) world.dancers = {};
+    world.dancers[player.name] = player;
+    return player.name+" börjar dansa så nu dansar "+_.map(world.dancers, 'name');
+  },
+
+  sluta: function (player, world, params) {
+    if (_.get(params, 0, "") == 'dansa') {
+      if (!world.dancers) world.dancers = {};
+      delete world.dancers[player.name];
+      var dancers = _.map(world.dancers, 'name');
+      if (_.isEmpty(dancers)) dancers = 'ingen';
+      return player.name+" slutade dansa så nu dansar "+dancers;
+    } else {
+      return 'Sluta med vaddå?';      
+    }
   }
 
 };
