@@ -199,7 +199,7 @@
         
     "map.Tingshögarna" : {
       dansa: function (player, world, params) {
-        if (_.size(world.dancers) < 1) 
+        if (_.size(world.dancers) < 2) 
           return "Wow, det ser bra ut! Men vi borde vara fler som dansar!";
         else {
           const tings = world.map['Tingshögarna'];
