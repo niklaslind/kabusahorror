@@ -67,10 +67,17 @@ module.exports = {
     return item.use(player, world, params);
   },
 
-  dansa: function (player, world, params) {
+  dansa: function (player, world, params) {    
     if (!world.dancers) world.dancers = {};
-    world.dancers[player.name] = player;
-    return player.name+" börjar dansa så nu dansar "+_.map(world.dancers, 'name');
+    if ((_.get(params, 0, "") == "som") && (_.get(params, 1, "") != "") && (_.get(params, 2, "") != "")) {
+      var msg = params.join(' ');
+      world.dancers[player.name] = msg;
+      if (player.currentLocation.dansa)
+        msg = msg + '\n' + player.currentLocation.dansa(player, world, params);
+      return player.name + " börjar dansa "  + msg;
+    } else {
+      return "Dansa som en vaddå?";
+    }
   },
 
   sluta: function (player, world, params) {

@@ -1,6 +1,8 @@
 (function() {
 
-//  var kabesTomb = require('./kabesTomb');
+  //  var kabesTomb = require('./kabesTomb');
+  const _ = require('lodash');
+
   
   var items = {
     mirror: {
@@ -167,9 +169,18 @@
     }
     
   };
-    
+  
   var gameLogic = {
 
+
+    "map.Tingshögarna" : {
+      dansa: function (player, world, params) {
+        if (_.size(world.dancers) < 3) 
+          return "Wow, det ser bra ut! Men vi borde vara fler som dansar!";
+        else
+          return "Wow, nu skakar jorden!";
+      }
+    },
     
     "map.Hildas" : {
       
