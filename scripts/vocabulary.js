@@ -5,7 +5,7 @@ module.exports = {
 
   hjälp: function(player, world, params) {
     return 'Försök med någpt av detta: '+
-      '\ntitta \ngå <destination> \nta <item> (exaempel: ta en glass) \nsläpp <item> \ninventory \nanvänd <item>';
+      '\ntitta \ngå <destination> \nta <item> (exaempel: ta en glass) \nsläpp <item> \ninventory \nanvänd <item>\ndansa som en <någonting>\nsluta dansa';
   },
   
   titta: function(player, world, params) {
