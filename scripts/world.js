@@ -5,6 +5,12 @@
   var handlebars = require('handlebars');
   
   var items = {
+    runsten: {
+      name: "en runsten",
+      use: function (player, world, params) {
+        return "Verkar inte kunna använda den till något. Men om jag läser på den så står det: \nNär en anka och en gris dansar på mina gravkullar skall jag avslöja min hemlighet.";
+      }      
+    },
     mirror: {
       name: "en spegel",
       use: function (player, world, params) {
@@ -82,7 +88,7 @@
     "Kabusagården":{  
       "description":"{{name}} står utanför Kabusagården",
       "items":[  
-        ""
+        items.runsten
       ],
       "exits":{  
         "west":"Hildas",
