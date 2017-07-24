@@ -11,7 +11,7 @@
         return "Verkar inte kunna använda den till något vettigt.";
       },
       examine: function (player, world, params) {
-        return "Ristningen är fornskånsk runskrift. Det är inte många i världen som kan läsa den men som tur är så är jag en av dem. Inskriptionen lyder:\n Kabe ristade denna sten. När grisen och ankan dansar på mina gravhögar skall jag avslöja min hemlighet.";
+        return "Ristningen är fornskånsk runskrift. Det är inte många i världen som kan läsa den men som tur är så är jag en av dem. Inskriptionen lyder:\n Kabe ristade denna sten. När grisen, bävern, gåsen och ankan dansar på mina gravhögar skall jag avslöja min hemlighet.";
       }      
     },
     mirror: {
@@ -199,7 +199,7 @@
         
     "map.Tingshögarna" : {
       dansa: function (player, world, params) {
-        if (_.size(world.dancers) < 2) 
+        if (_.size(world.dancers) < 4) 
           return "Wow, det ser bra ut! Men vi borde vara fler som dansar!";
         else {
           const tings = world.map['Tingshögarna'];
