@@ -10,10 +10,15 @@
       "down": "Underjorden"
     }    
   };
+
+  function numberOfDancers(room) {
+    return _.filter(room.players, 'isDancing').length;
+  }
+
   
   module.exports.gameLogic = {
     dansa: function (player, world, params) {
-      if (_.size(world.dancers) < 4) 
+      if (numberOfDancers(player.currentLocation) < 4) 
         return "Wow, det ser bra ut! Men vi borde vara fler som dansar!";
       else {
         const tings = world.map['Tingshögarna'];
