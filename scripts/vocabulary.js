@@ -1,5 +1,14 @@
 var _ = require('lodash');
 
+function canSee(player, world) {
+  var r = _.map(player.currentLocation.items, 'name');
+  _.map(player.currentLocation.players, (p) => {
+    if (player != p) r.push(p.name);
+  });
+  if (_.isEmpty(r)) r.push('inget särskilt');
+  return r;
+}
+
 module.exports = {
   
 
@@ -24,15 +33,17 @@ module.exports = {
   titta: function(player, world, params) {
     var location = player.currentLocation;
     return location.description(player) +
-      '\n... kan se '+_.map(player.currentLocation.items, 'name')  +
-      '\n... kan gå ' + _.keys(player.currentLocation.exits);
+      '\n... kan se:\n  ' + canSee(player, world).join('\n  ') +
+      '\n... kan gå ' + _.keys(player.currentLocation.exits).join(', ');
   },
 
   gå: function(player, world, params) {
     if (_.isEmpty(params)) return "Gå vart?";
     var newLocation = _.get( player.currentLocation.exits, params[0]);
     if (!newLocation) return "Jag kan inte gå "+params[0];
+    _.remove(player.currentLocation.players, (p) => { return player == p; }); //remove the player from current room
     player.currentLocation = newLocation;
+    player.currentLocation.players.push(player);
     return newLocation.description(player);
   },
 

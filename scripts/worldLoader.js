@@ -18,6 +18,7 @@
       function(r) {
         r.exits = mapExits(r.exits);
         r.description = handlebars.compile(r.description);
+        r.players = [];
       }
     );
     return rooms;
