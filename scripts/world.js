@@ -1,6 +1,7 @@
 (function() {
 
   const tingshogarna = require('./gamelogic/tingshogarna');
+  const hildas = require('./gamelogic/hildas');
   
   var items = {
     runsten: {
@@ -39,7 +40,7 @@
     spade: {
       name: "en spade",
       use: function (player, world, params) {
-        var tingshogItems = world.map.Tingshogarna.items;
+        var tingshogItems = world.map['Tingshögarna'].items;
         tingshogItems.push(world.items.skalle);
         return "Wow! Jag hittade någonting!";
       }
@@ -187,33 +188,9 @@
   };
 
   
-  var gameLogic = {
-        
-    "map.Tingshögarna" : tingshogarna.gameLogic,
-    
-    "map.Hildas" : {
-      
-      ta: function (player, world, params, item) {
-        if (item != world.items.glass)
-          return {
-            success: true
-          };
-
-        var hildasItems = world.map.Hildas.items;
-        var skull = world.items.skalle;
-        if ( hildasItems.includes(skull) ) {
-          return {
-            success: true,
-            msg: "Ok, jag behöver döskallar för att göra mer glass."
-          };
-        } else {
-          return {
-            success: false,
-            msg: "Har du en döskalle att byta med?"
-          };
-        }
-      }
-    }
+  var gameLogic = {        
+    "map.Tingshögarna" : tingshogarna.gameLogic,    
+    "map.Hildas" : hildas.gameLogic    
   };     
   
   module.exports.world =  {
