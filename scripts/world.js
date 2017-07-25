@@ -1,6 +1,6 @@
 (function() {
 
-  const tingshogarna = require('./tingshogarna');
+  const tingshogarna = require('./gamelogic/tingshogarna');
   
   var items = {
     runsten: {
