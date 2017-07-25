@@ -3,7 +3,11 @@ var _ = require('lodash');
 function canSee(player, world) {
   var r = _.map(player.currentLocation.items, 'name');
   _.map(player.currentLocation.players, (p) => {
-    if (player != p) r.push(p.name);
+    if (player != p)  {
+      const msg = p.isDancing ? " dansar "+p.isDancing : "";
+      r.push(p.name + msg );      
+    }
+
   });
   if (_.isEmpty(r)) r.push('inget särskilt');
   return r;
@@ -95,7 +99,7 @@ module.exports = {
     if (!world.dancers) world.dancers = {};
     if ((_.get(params, 0, "") == "som") && (_.get(params, 1, "") != "") && (_.get(params, 2, "") != "")) {
       var msg = params.join(' ');
-      world.dancers[player.name] = msg;
+      player.isDancing = msg;
       if (player.currentLocation.dansa)
         msg = msg + '\n' + player.currentLocation.dansa(player, world, params);
       return player.name + " börjar dansa "  + msg;
@@ -106,11 +110,9 @@ module.exports = {
 
   sluta: function (player, world, params) {
     if (_.get(params, 0, "") == 'dansa') {
-      if (!world.dancers) world.dancers = {};
-      delete world.dancers[player.name];
-      var dancers = _.map(world.dancers, 'name');
-      if (_.isEmpty(dancers)) dancers = 'ingen';
-      return player.name+" slutade dansa så nu dansar "+dancers;
+      const msg = player.name+" slutade dansa "+player.isDancing;
+      delete player.isDancing;
+      return msg;
     } else {
       return 'Sluta med vaddå?';      
     }
