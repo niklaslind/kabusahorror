@@ -32,9 +32,13 @@
       }
     },
     hangglidare: {
-      name: "en gammal hängglidare",
+      name: "en hängglidare",
       use: function (player, world, params) {
-        return "Oh nej, jag kraschar... BOFF!!!";
+        if (player.currentLocation.id == 'Vakttorns_toppen' || player.currentLocation.id == 'Hammarsbackar'){
+          
+            return "Hjälp, jag kommer att krasha i havet! Yyyyyyyyyyyyl.....";
+        }        
+        return "Den funkar inte från marken, man måste klättra upp någonstans";
       }
     },
     spade: {
@@ -50,7 +54,13 @@
       use: function (player, world, params) {
         return "Nej, jag borde inte dricka den här, just nu..";
       }
-    }     
+    },
+    sheep: {
+      name: "ett får",
+      use: function (player, world, params) {
+        return "Bäääääää";
+      }
+    }      
   };
   
   

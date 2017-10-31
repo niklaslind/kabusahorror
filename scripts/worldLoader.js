@@ -51,6 +51,7 @@
     // Get global world from api, then create world object.
     //var globalWorldUrl = 'http://localhost:8050/getDataAws';
     var remoteWorldUrl = 'http://worldmaker.herokuapp.com/getDataAws';
+    //var remoteWorldUrl = 'http://localhost:8050/getDataAws';
     
     request(remoteWorldUrl, function (error, response, body) {
       if (error) {
@@ -58,9 +59,9 @@
         var world = processWorld(inputWorld, inputWorld.map);
         callback(world);                
       } else {
-        console.log('Processing remote world');
+        //console.log('Processing remote world');
         var rooms = JSON.parse(JSON.parse(response.body).data);
-        console.log( JSON.stringify(rooms, null, 2));
+        //console.log( JSON.stringify(rooms, null, 2));
         rooms = parseRoomItems(rooms, inputWorld.items);
         var world = processWorld(inputWorld, rooms);
         callback(world);        
